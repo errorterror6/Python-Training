@@ -55,8 +55,8 @@ print("bottom text")
 def sayhi2 (name, age):
     print("hello user " + name + " you are " + age)
 
-sayhi2("Solari", "26")
-sayhi2("Lunari", "24")
+sayhi2("Sol", "26")
+sayhi2("Lun", "24")
 
 
 def cub3(num):
