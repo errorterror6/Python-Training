@@ -8,7 +8,7 @@ def word_get(filename):
 
 #print(word_get("text.txt"))
 
-
+#function 2 extracts the dates out onto an array in a format that gcal API likes
 def date_get(word_array):
 
     wordcount = len(word_array)    #gives the length of the array, useful for while loop
@@ -26,12 +26,12 @@ def date_get(word_array):
 
 
 #    print(tf_array)        #debugging, check array is correct
-
+    print("loop 1 exited")  # debugging step for loop 1
+                                    #i want to pull out dates (1 less than T/F array pos)
     tf_array_length = len(tf_array)
 #    print("tf_array_length:")
 #    print(tf_array_length)
-    print("loop 1 exited")  # debugging step for loop 1
-#i want to pull out dates (1 less than T/F array pos)
+   
 
 
 
@@ -42,8 +42,8 @@ def date_get(word_array):
         one_less = tf_array[b] - 1
         date_position_array.append(one_less)
         b += 1
-#    print("one_less_array:")
-#    print(one_less_array)      #debugging step
+#    print("date_position_array:")
+#    print(date_position_array)      #debugging step
     print("loop 2 exited")     #debugging step for loop 2 success
 
     c = 0  #while loop 3 controller
@@ -67,20 +67,31 @@ def date_get(word_array):
 
     return api_datetime_array, date_position_array
 
+
+#function 3 converts text date string into API compatible dates, but does not put it into arrays
 def datetime_convert(date_str):
     #datetime is called upon in loop 3 on def 2.
 
 
     from datetime import datetime
 
+
+
     date_month = date_str   #variable imported from function 2 via fn input
     year = "/21"
     time = " 09:00:00"
 
+
+
+
     date_time_str = date_month + year + time
 #    print("test" + date_time_str)       debugging step
+    try:
+        date_time_obj = datetime.strptime(date_time_str, '%d/%m/%y %H:%M:%S')
+    except ValueError:
+        print("Error: " + date_month + " is not a valid date")
+        exit()
 
-    date_time_obj = datetime.strptime(date_time_str, '%d/%m/%y %H:%M:%S')
     date_time_test = date_time_obj.strftime("%y-%m-%dT%H:%M:%S")
     API_datetime = str(date_time_test) + "+10:00"
 #    print(API_datetime)
@@ -88,26 +99,29 @@ def datetime_convert(date_str):
 
     return API_datetime
 
+
+#loop 4 arrays the strings on event descriptions
 def desc_get(word_array1,date_pos_array):
 #debugging steps
 #    print("test " + str(word_array1))
 #    print("test "+ str(date_pos_array))
     no_events = len(date_pos_array)
     a = 0
-    b = 0
     prev_date = 0
     event_str = ""
     event_array = []
-    while (a < no_events):
+    while a < no_events:
         date_location = date_pos_array[a]
-        while(prev_date<date_location):
+        while prev_date < date_location:
             event_str += word_array1[prev_date] + " "
             prev_date+=1
         prev_date = date_location + 2
-        a+=1
+        a += 1
         event_array.append(event_str)
         event_str = ""
 #    print(event_array)
+
+
 
 
 
@@ -130,13 +144,7 @@ def desc_get(word_array1,date_pos_array):
 
 #THINGS TO DO:
     #extract the description
-    #if the "date" in front of TRUE/FALSE is not given, or ASAP give special conditions.
-        #if else before loop 3?
-
-
-
-    #    print(wordcount) #total amount of words
-
+   
 
 
 
@@ -156,6 +164,26 @@ print(event_array)
 
 
 
+
+
+
+
+    #    print(wordcount) #total amount of words
+
+
+    # check_array = list(date_month)
+
+    # if len(check_array) != 5:
+    #     print("error len: " + date_month + " is not a valid date.")
+    #     exit()
+
+    # if check_array[2] != "/":
+    #     print("error /: " + date_month +" is not a valid date.")
+    #     exit()
+
+    # if all(map(str.isnumeric, date_month.split("/"))) == False:
+    #     print("error: " + date_month + " is not a valid date.")
+    #     exit()
 
 
 
