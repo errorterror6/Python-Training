@@ -9,6 +9,18 @@ while a < b:   #this will repeat until the condition is no longer true
     if a == 8:    #you don't need a break, but you can use a break to get out of a loop
         break
 
+c = 0  #while loop 2 controller
+array = [1,2,3,4,5,6]
+array_length = len(array)
+new_array = []
+
+#Loops have very good synergy with arrays
+while c < array_length:
+    one_less = array[c] - 1
+    new_array.append(one_less)
+    c += 1
+
+print(new_array)
 print("""
 
 ---for loops---
@@ -50,7 +62,7 @@ while b < number_length:
 if map(str.isnumeric,numbers_2) == False:
     print("my string is illegal")
 else:
-    print("legal string")
+    print("string is all numeric")
 
 
 
