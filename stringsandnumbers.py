@@ -11,7 +11,11 @@ print("assigning variables")
 #assigning variables
 character_name = "John"
 character_age = "35"
+character_age2 = 35
 isMale = True
+print(type(character_age))
+print(type(character_age2))
+print(type(isMale))
 #basic types of data: strings (plain text), numbers, boolean (T/F)
 print("There once was a man named " + character_name)
 print("He was "+ character_age)
